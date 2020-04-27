@@ -9,7 +9,7 @@ namespace MetarLib.Parsers
 {
     public class CloudParser : IFieldParser
     {
-        private static readonly Regex CloudRegex = new Regex(@"(SKC|FEW|SCT|BKN|OVC|NCD|NSC)(\d{3})?(CB|TCU)?", RegexOptions.Compiled);
+        private static readonly Regex CloudRegex = new Regex(@"^(SKC|FEW|SCT|BKN|OVC|NCD|NSC)(\d{3})?(CB|TCU)?", RegexOptions.Compiled);
         
         public bool Parse(string field, Metar metar)
         {

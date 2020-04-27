@@ -5,7 +5,7 @@ namespace MetarLib.Parsers
 {
     public class TemperatureDewpointParser : IFieldParser
     {
-        private static readonly Regex TemperatureDewpointRegex = new Regex(@"(M)?(\d{2})/(M)?(\d{2})", RegexOptions.Compiled);
+        private static readonly Regex TemperatureDewpointRegex = new Regex(@"^(M)?(\d{2})/(M)?(\d{2})$", RegexOptions.Compiled);
         
         public bool Parse(string field, Metar metar)
         {

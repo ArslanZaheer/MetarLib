@@ -6,7 +6,7 @@ namespace MetarLib.Parsers
 {
     public class AltimeterSettingParser : IFieldParser
     {
-        private static readonly Regex AltimeterSettingRegex = new Regex(@"(A|Q)(\d{4})", RegexOptions.Compiled);
+        private static readonly Regex AltimeterSettingRegex = new Regex(@"^(A|Q)(\d{4})$", RegexOptions.Compiled);
 
         public bool Parse(string field, Metar metar)
         {

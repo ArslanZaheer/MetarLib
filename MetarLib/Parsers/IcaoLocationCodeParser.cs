@@ -9,6 +9,9 @@ namespace MetarLib.Parsers
         
         public bool Parse(string field, Metar metar)
         {
+            if (metar.IcaoLocationCode != null)
+                return false;
+            
             var match = IcaoLocationCodeRegex.Match(field);
 
             if (!match.Success)

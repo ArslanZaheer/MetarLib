@@ -6,7 +6,7 @@ namespace MetarLib.Parsers
 {
     public class TimeOfObservationParser : IFieldParser
     {
-        private static readonly Regex TimeOfObservationRegex = new Regex(@"(\d{2})(\d{2})(\d{2})Z", RegexOptions.Compiled);
+        private static readonly Regex TimeOfObservationRegex = new Regex(@"^(\d{2})(\d{2})(\d{2})Z$", RegexOptions.Compiled);
 
         private readonly IDateTimeProvider _dateTimeProvider;
         

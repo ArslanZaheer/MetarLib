@@ -9,8 +9,8 @@ namespace MetarLib.Parsers
         private const string CloudAndVisibilityOk = "CAVOK";
         private const int VisibilityUnlimited = 9999;
         
-        private static readonly Regex VisibilityMetersRegex = new Regex(@"(\d{4}|CAVOK)", RegexOptions.Compiled);
-        private static readonly Regex VisibilityStatuteMilesRegex = new Regex(@"(M)?(?:(\d)/)?(\d)SM", RegexOptions.Compiled);
+        private static readonly Regex VisibilityMetersRegex = new Regex(@"^(\d{4}|CAVOK)$", RegexOptions.Compiled);
+        private static readonly Regex VisibilityStatuteMilesRegex = new Regex(@"^(M)?(?:(\d)/)?(\d)SM$", RegexOptions.Compiled);
         
         public bool Parse(string field, Metar metar)
         {

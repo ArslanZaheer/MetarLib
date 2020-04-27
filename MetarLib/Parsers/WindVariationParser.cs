@@ -5,7 +5,7 @@ namespace MetarLib.Parsers
 {
     public class WindVariationParser : IFieldParser
     {
-        private static readonly Regex WindVariationRegex = new Regex(@"(\d{3})V(\d{3})", RegexOptions.Compiled);
+        private static readonly Regex WindVariationRegex = new Regex(@"^(\d{3})V(\d{3})$", RegexOptions.Compiled);
         
         public bool Parse(string field, Metar metar)
         {
