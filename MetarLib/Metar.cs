@@ -9,6 +9,7 @@ namespace MetarLib
         public Metar()
         {
             Clouds = new List<Cloud>();
+            Weather = new List<WeatherFlags>();
         }
         
         public string IcaoLocationCode { get; set; }
@@ -29,6 +30,8 @@ namespace MetarLib
         
         public int? Temperature { get; set; }
         public int? Dewpoint { get; set; }
+        
+        public ICollection<WeatherFlags> Weather { get; }
         
         public ICollection<Cloud> Clouds { get; }
         

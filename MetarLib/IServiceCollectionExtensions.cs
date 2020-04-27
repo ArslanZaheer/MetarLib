@@ -15,6 +15,7 @@ namespace MetarLib
             serviceCollection.AddSingleton<IFieldParser, WindParser>();
             serviceCollection.AddSingleton<IFieldParser, WindVariationParser>();
             serviceCollection.AddSingleton<IFieldParser, VisibilityParser>();
+            serviceCollection.AddSingleton<IFieldParser, WeatherParser>();
             serviceCollection.AddSingleton<IFieldParser, CloudParser>();
             serviceCollection.AddSingleton<IFieldParser, TemperatureDewpointParser>();
             serviceCollection.AddSingleton<IFieldParser, AltimeterSettingParser>();
