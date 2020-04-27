@@ -6,7 +6,7 @@ namespace MetarLib.Parsers
 {
     public class TimeOfObservationParser : IFieldParser
     {
-        private static readonly Regex TimeOfObservationRegex = new Regex(@" (\d{2})(\d{2})(\d{2})Z", RegexOptions.Compiled);
+        private static readonly Regex TimeOfObservationRegex = new Regex(@"(\d{2})(\d{2})(\d{2})Z", RegexOptions.Compiled);
 
         private readonly IDateTimeProvider _dateTimeProvider;
         
@@ -15,12 +15,12 @@ namespace MetarLib.Parsers
             _dateTimeProvider = dateTimeProvider;
         }
         
-        public void Parse(string metarText, Metar metar)
+        public bool Parse(string field, Metar metar)
         {
-            var match = TimeOfObservationRegex.Match(metarText);
+            var match = TimeOfObservationRegex.Match(field);
             
             if (!match.Success)
-                return;
+                return false;
 
             var day = int.Parse(match.Groups[1].Value);
             var hour = int.Parse(match.Groups[2].Value);
@@ -32,6 +32,8 @@ namespace MetarLib.Parsers
                 dateTime = dateTime.AddMonths(-1);
             
             metar.TimeOfObservation = new DateTimeOffset(dateTime.Year, dateTime.Month, day, hour, minutes, 0, TimeSpan.Zero);
+            
+            return true;
         }
     }
 }

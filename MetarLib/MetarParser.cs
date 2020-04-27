@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using MetarLib.Contracts;
 
@@ -6,7 +7,7 @@ namespace MetarLib
 {
     public class MetarParser : IMetarParser
     {
-        private static readonly Regex MetarRegex = new Regex(@"METAR ([A-Z]{4}) (.+?)=", RegexOptions.Compiled | RegexOptions.Singleline);
+        private static readonly Regex MetarRegex = new Regex(@"METAR (.+?)=", RegexOptions.Compiled | RegexOptions.Singleline);
         
         private readonly IEnumerable<IFieldParser> _fieldParsers;
 
@@ -29,10 +30,18 @@ namespace MetarLib
 
         private Metar ParseMetar(Match match)
         {
-            var metar = new Metar(match.Groups[1].Value);
+            var metar = new Metar();
 
-            foreach (var parser in _fieldParsers)
-                parser.Parse(match.Value, metar);
+            var fields = match.Groups[1].Value.Split(' ');
+
+            foreach (var field in fields)
+            {
+                foreach (var parser in _fieldParsers)
+                {
+                    if (parser.Parse(field, metar))
+                        break;
+                }
+            }
             
             return metar;
         }

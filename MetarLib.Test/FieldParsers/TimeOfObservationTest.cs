@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MetarLib.Test.FieldParsers
 {
     [TestClass]
-    public class TimeOfObservationTest : IFieldParserTestBase
+    public class TimeOfObservationTest
     {
         private class FakeDateTimeProvider : IDateTimeProvider
         {
@@ -21,10 +21,11 @@ namespace MetarLib.Test.FieldParsers
         [TestMethod]
         public void Metar_has_correct_time_of_observation()
         {
-            var (metarText, metar) = GetMetarWithText("170845Z");
             var parser = new TimeOfObservationParser(new FakeDateTimeProvider());
             
-            parser.Parse(metarText, metar);
+            var metar = new Metar();
+
+            parser.Parse("170845Z", metar);
             
             Assert.AreEqual(17, metar.TimeOfObservation.Day);
             Assert.AreEqual(8, metar.TimeOfObservation.Hour);
@@ -34,14 +35,17 @@ namespace MetarLib.Test.FieldParsers
         [TestMethod]
         public void Metar_day_is_greater_than_current_day()
         {
-            var dateTimeProvider = new FakeDateTimeProvider();
+            var currentMonth = 4;
+
+            var dateTimeProvider = new FakeDateTimeProvider
+            {
+                Now = new DateTimeOffset(2020, currentMonth, 1, 0, 0, 0, TimeSpan.Zero)
+            };
             var parser = new TimeOfObservationParser(dateTimeProvider);
             
-            var (metarText, metar) = GetMetarWithText("020000Z");
-            var currentMonth = 4;
-            dateTimeProvider.Now = new DateTimeOffset(2020, currentMonth, 1, 0, 0, 0, TimeSpan.Zero);
+            var metar = new Metar();
             
-            parser.Parse(metarText, metar);
+            parser.Parse("020000Z", metar);
             
             Assert.AreEqual(currentMonth - 1, metar.TimeOfObservation.Month);
             Assert.AreEqual(2, metar.TimeOfObservation.Day);

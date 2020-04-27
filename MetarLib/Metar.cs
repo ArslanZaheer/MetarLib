@@ -1,38 +1,39 @@
 using System;
+using System.Collections.Generic;
 using MetarLib.Enums;
 
 namespace MetarLib
 {
     public class Metar
     {
-        public Metar(string icaoLocationCode)
+        public Metar()
         {
-            IcaoLocationCode = icaoLocationCode;
+            Clouds = new List<Cloud>();
         }
         
-        public string IcaoLocationCode { get; }
-        public DateTimeOffset TimeOfObservation { get; internal set; }
+        public string IcaoLocationCode { get; set; }
+        public DateTimeOffset TimeOfObservation { get; set; }
         
-        public int? WindDirection { get; internal set; }
-        public bool IsWindVariable { get; internal set; }
-        public int? WindSpeed { get; internal set; }
-        public int? WindGustingTo { get; internal set; }
-        public UnitOfSpeed WindSpeedUnit { get; internal set; }
+        public int? WindDirection { get; set; }
+        public bool IsWindVariable { get; set; }
+        public int? WindSpeed { get; set; }
+        public int? WindGustingTo { get; set; }
+        public UnitOfSpeed WindSpeedUnit { get; set; }
         
-        public int? WindVaryingFrom { get; internal set; }
-        public int? WindVaryingTo { get; internal set; }
+        public int? WindVaryingFrom { get; set; }
+        public int? WindVaryingTo { get; set; }
         
-        public bool VisibilityLessThan { get; internal set; }
-        public decimal? Visibility { get; internal set; }
-        public UnitOfLength VisibilityUnit { get; internal set; }
+        public bool VisibilityLessThan { get; set; }
+        public decimal? Visibility { get; set; }
+        public UnitOfLength VisibilityUnit { get; set; }
         
-        public int? Temperature { get; internal set; }
-        public int? Dewpoint { get; internal set; }
+        public int? Temperature { get; set; }
+        public int? Dewpoint { get; set; }
         
-        public Cloud[] Clouds { get; internal set; }
+        public ICollection<Cloud> Clouds { get; }
         
-        public decimal? AltimeterSetting { get; internal set; }
-        public UnitOfPressure AltimeterSettingUnit { get; internal set; }
+        public decimal? AltimeterSetting { get; set; }
+        public UnitOfPressure AltimeterSettingUnit { get; set; }
 
         public override string ToString() => IcaoLocationCode;
     }

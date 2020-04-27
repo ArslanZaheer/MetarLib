@@ -11,14 +11,14 @@ namespace MetarLib.Parsers
         private const string Knots = "KT";
         private const string MetersPerSecond = "MPS";
         
-        private static readonly Regex WindRegex = new Regex(@" (VRB|\d{3})(\d{2})(?:G(\d{2}))?(KT|MPS|KPH)", RegexOptions.Compiled);
+        private static readonly Regex WindRegex = new Regex(@"(VRB|\d{3})(\d{2})(?:G(\d{2}))?(KT|MPS|KPH)", RegexOptions.Compiled);
         
-        public void Parse(string metarText, Metar metar)
+        public bool Parse(string field, Metar metar)
         {
-            var match = WindRegex.Match(metarText);
+            var match = WindRegex.Match(field);
 
             if (!match.Success)
-                return;
+                return false;
 
             if (match.Groups[1].Value == WindVariable)
                 metar.IsWindVariable = true;
@@ -36,6 +36,8 @@ namespace MetarLib.Parsers
                 Knots => UnitOfSpeed.Knots,
                 MetersPerSecond => UnitOfSpeed.MetersPerSecond
             };
+
+            return true;
         }
     }
 }

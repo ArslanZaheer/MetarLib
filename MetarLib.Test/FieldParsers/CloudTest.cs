@@ -16,7 +16,7 @@ namespace MetarLib.Test.FieldParsers
             var metar = GetMetar("FEW026");
 
             Assert.IsNotNull(metar.Clouds);
-            Assert.AreEqual(1, metar.Clouds.Length);
+            Assert.AreEqual(1, metar.Clouds.Count);
 
             var cloud = metar.Clouds.Single();
 
@@ -31,7 +31,7 @@ namespace MetarLib.Test.FieldParsers
             var metar = GetMetar("BKN127///");
 
             Assert.IsNotNull(metar.Clouds);
-            Assert.AreEqual(1, metar.Clouds.Length);
+            Assert.AreEqual(1, metar.Clouds.Count);
 
             var cloud = metar.Clouds.Single();
 
@@ -46,7 +46,7 @@ namespace MetarLib.Test.FieldParsers
             var metar = GetMetar("SCT046TCU");
 
             Assert.IsNotNull(metar.Clouds);
-            Assert.AreEqual(1, metar.Clouds.Length);
+            Assert.AreEqual(1, metar.Clouds.Count);
 
             var cloud = metar.Clouds.Single();
 
@@ -61,7 +61,7 @@ namespace MetarLib.Test.FieldParsers
             var metar = GetMetar("NSC");
 
             Assert.IsNotNull(metar.Clouds);
-            Assert.AreEqual(1, metar.Clouds.Length);
+            Assert.AreEqual(1, metar.Clouds.Count);
 
             var cloud = metar.Clouds.Single();
 
@@ -76,7 +76,7 @@ namespace MetarLib.Test.FieldParsers
             var metar = GetMetar("NCD");
 
             Assert.IsNotNull(metar.Clouds);
-            Assert.AreEqual(1, metar.Clouds.Length);
+            Assert.AreEqual(1, metar.Clouds.Count);
 
             var cloud = metar.Clouds.Single();
 

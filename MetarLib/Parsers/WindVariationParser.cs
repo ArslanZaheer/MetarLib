@@ -5,17 +5,19 @@ namespace MetarLib.Parsers
 {
     public class WindVariationParser : IFieldParser
     {
-        private static readonly Regex WindVariationRegex = new Regex(@" (\d{3})V(\d{3})", RegexOptions.Compiled);
+        private static readonly Regex WindVariationRegex = new Regex(@"(\d{3})V(\d{3})", RegexOptions.Compiled);
         
-        public void Parse(string metarText, Metar metar)
+        public bool Parse(string field, Metar metar)
         {
-            var match = WindVariationRegex.Match(metarText);
+            var match = WindVariationRegex.Match(field);
 
             if (!match.Success)
-                return;
+                return false;
 
             metar.WindVaryingFrom = int.Parse(match.Groups[1].Value);
             metar.WindVaryingTo = int.Parse(match.Groups[2].Value);
+
+            return true;
         }
     }
 }

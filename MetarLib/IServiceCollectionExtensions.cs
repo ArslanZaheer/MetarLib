@@ -10,13 +10,14 @@ namespace MetarLib
         {
             serviceCollection.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
-            serviceCollection.AddSingleton<IFieldParser, AltimeterSettingParser>();
-            serviceCollection.AddSingleton<IFieldParser, CloudParser>();
-            serviceCollection.AddSingleton<IFieldParser, TemperatureDewpointParser>();
+            serviceCollection.AddSingleton<IFieldParser, IcaoLocationCodeParser>();
             serviceCollection.AddSingleton<IFieldParser, TimeOfObservationParser>();
-            serviceCollection.AddSingleton<IFieldParser, VisibilityParser>();
             serviceCollection.AddSingleton<IFieldParser, WindParser>();
             serviceCollection.AddSingleton<IFieldParser, WindVariationParser>();
+            serviceCollection.AddSingleton<IFieldParser, VisibilityParser>();
+            serviceCollection.AddSingleton<IFieldParser, CloudParser>();
+            serviceCollection.AddSingleton<IFieldParser, TemperatureDewpointParser>();
+            serviceCollection.AddSingleton<IFieldParser, AltimeterSettingParser>();
 
             serviceCollection.AddSingleton<IMetarParser, MetarParser>();
         }

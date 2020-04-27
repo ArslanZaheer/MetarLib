@@ -9,15 +9,12 @@ namespace MetarLib.Parsers
         private const string CloudAndVisibilityOk = "CAVOK";
         private const int VisibilityUnlimited = 9999;
         
-        private static readonly Regex VisibilityMetersRegex = new Regex(@" (\d{4}|CAVOK)", RegexOptions.Compiled);
-        private static readonly Regex VisibilityStatuteMilesRegex = new Regex(@" (M)?(?:(\d)/)?(\d)SM", RegexOptions.Compiled);
+        private static readonly Regex VisibilityMetersRegex = new Regex(@"(\d{4}|CAVOK)", RegexOptions.Compiled);
+        private static readonly Regex VisibilityStatuteMilesRegex = new Regex(@"(M)?(?:(\d)/)?(\d)SM", RegexOptions.Compiled);
         
-        public void Parse(string metarText, Metar metar)
+        public bool Parse(string field, Metar metar)
         {
-            if (TryParseVisibilityMeters(metarText, metar))
-                return;
-
-            ParseVisibilityStatuteMiles(metarText, metar);
+            return TryParseVisibilityMeters(field, metar) || TryParseVisibilityStatuteMiles(field, metar);
         }
 
         private bool TryParseVisibilityMeters(string metarText, Metar metar)
@@ -38,12 +35,12 @@ namespace MetarLib.Parsers
             return true;
         }
 
-        private void ParseVisibilityStatuteMiles(string metarText, Metar metar)
+        private bool TryParseVisibilityStatuteMiles(string metarText, Metar metar)
         {
             var match = VisibilityStatuteMilesRegex.Match(metarText);
 
             if (!match.Success)
-                return;
+                return false;
             
             var numerator = match.Groups[2];
             var value = decimal.Parse(match.Groups[3].Value);
@@ -52,6 +49,8 @@ namespace MetarLib.Parsers
 
             metar.VisibilityLessThan = match.Groups[1].Success;
             metar.VisibilityUnit = UnitOfLength.StatuteMiles;
+
+            return true;
         }
     }
 }

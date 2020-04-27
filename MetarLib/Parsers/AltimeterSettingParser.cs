@@ -6,14 +6,14 @@ namespace MetarLib.Parsers
 {
     public class AltimeterSettingParser : IFieldParser
     {
-        private static readonly Regex AltimeterSettingRegex = new Regex(@" (A|Q)(\d{4})", RegexOptions.Compiled);
+        private static readonly Regex AltimeterSettingRegex = new Regex(@"(A|Q)(\d{4})", RegexOptions.Compiled);
 
-        public void Parse(string metarText, Metar metar)
+        public bool Parse(string field, Metar metar)
         {
-            var match = AltimeterSettingRegex.Match(metarText);
+            var match = AltimeterSettingRegex.Match(field);
 
             if (!match.Success)
-                return;
+                return false;
 
             var altimeterSetting = decimal.Parse(match.Groups[2].Value);
 
@@ -27,6 +27,8 @@ namespace MetarLib.Parsers
                 metar.AltimeterSetting = altimeterSetting;
                 metar.AltimeterSettingUnit = UnitOfPressure.Hectopascals;
             }
+
+            return true;
         }
     }
 }

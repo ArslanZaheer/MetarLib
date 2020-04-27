@@ -4,8 +4,6 @@ namespace MetarLib.Test.FieldParsers
 {
     public abstract class IFieldParserTestBase
     {
-        private const string MetarTemplate = "METAR {0} {1}=";
-
         private readonly IFieldParser _fieldParser;
 
         protected IFieldParserTestBase(IFieldParser fieldParser)
@@ -13,23 +11,13 @@ namespace MetarLib.Test.FieldParsers
             _fieldParser = fieldParser;
         }
         
-        protected IFieldParserTestBase() : this(null) {}
-        
-        protected Metar GetMetar(string contents, string locationCode = "EHZZ")
+        protected Metar GetMetar(string field)
         {
-            var (metarText, metar) = GetMetarWithText(contents, locationCode);
+            var metar = new Metar();
 
-            _fieldParser?.Parse(metarText, metar);
+            _fieldParser.Parse(field, metar);
 
             return metar;
-        }
-
-        protected (string metarText, Metar metar) GetMetarWithText(string contents, string locationCode = "EHZZ")
-        {
-            var metarText = string.Format(MetarTemplate, locationCode, contents);
-            var metar = new Metar(locationCode);
-
-            return (metarText, metar);
         }
     }
 }
