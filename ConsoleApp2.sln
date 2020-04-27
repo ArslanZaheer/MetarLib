@@ -1,7 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp2", "ConsoleApp2\ConsoleApp2.csproj", "{76174522-E094-42C5-81F6-33C9157593DF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetarLib", "MetarLib\MetarLib.csproj", "{60DB890C-E9AE-46BA-AA19-B15FE49D0CEA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetarLib.Test", "MetarLib.Test\MetarLib.Test.csproj", "{38338EAD-4295-4A99-8CCD-4C265169356D}"
@@ -12,10 +10,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{76174522-E094-42C5-81F6-33C9157593DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{76174522-E094-42C5-81F6-33C9157593DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{76174522-E094-42C5-81F6-33C9157593DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{76174522-E094-42C5-81F6-33C9157593DF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{60DB890C-E9AE-46BA-AA19-B15FE49D0CEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{60DB890C-E9AE-46BA-AA19-B15FE49D0CEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60DB890C-E9AE-46BA-AA19-B15FE49D0CEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
