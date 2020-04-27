@@ -1,10 +1,13 @@
+using MetarLib.Parsers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetarLib.Test
+namespace MetarLib.Test.FieldParsers
 {
     [TestClass]
-    public class WindVariationTest : MetarParserTestBase
+    public class WindVariationTest : IFieldParserTestBase
     {
+        public WindVariationTest() : base(new WindVariationParser()) {}
+
         [TestMethod]
         public void Metar_with_wind_variation()
         {

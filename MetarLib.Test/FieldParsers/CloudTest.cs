@@ -1,12 +1,15 @@
 using System.Linq;
 using MetarLib.Enums;
+using MetarLib.Parsers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetarLib.Test
+namespace MetarLib.Test.FieldParsers
 {
     [TestClass]
-    public class CloudTest : MetarParserTestBase
+    public class CloudTest : IFieldParserTestBase
     {
+        public CloudTest() : base(new CloudParser()) {}
+
         [TestMethod]
         public void Metar_with_cloud()
         {

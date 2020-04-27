@@ -1,9 +1,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetarLib.Test
+namespace MetarLib.Test.FieldParsers
 {
     [TestClass]
-    public class IcaoLocationCodeTest : MetarParserTestBase
+    public class IcaoLocationCodeTest : IFieldParserTestBase
     {
         [TestMethod]
         public void Metar_has_correct_ICAO_location_code()

@@ -1,11 +1,14 @@
 using MetarLib.Enums;
+using MetarLib.Parsers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetarLib.Test
+namespace MetarLib.Test.FieldParsers
 {
     [TestClass]
-    public class VisibilityTest : MetarParserTestBase
+    public class VisibilityTest : IFieldParserTestBase
     {
+        public VisibilityTest() : base(new VisibilityParser()) {}
+
         [TestMethod]
         public void Metar_with_visibility()
         {

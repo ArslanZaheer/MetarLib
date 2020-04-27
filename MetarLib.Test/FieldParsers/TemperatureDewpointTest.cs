@@ -1,10 +1,13 @@
+using MetarLib.Parsers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetarLib.Test
+namespace MetarLib.Test.FieldParsers
 {
     [TestClass]
-    public class TemperatureDewpointTest : MetarParserTestBase
+    public class TemperatureDewpointTest : IFieldParserTestBase
     {
+        public TemperatureDewpointTest() : base(new TemperatureDewpointParser()) {}
+
         [TestMethod]
         public void Metar_with_temperature_and_dewpoint()
         {

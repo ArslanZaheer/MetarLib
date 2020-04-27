@@ -5,7 +5,7 @@ namespace MetarLib
 {
     public class Metar
     {
-        internal Metar(string icaoLocationCode)
+        public Metar(string icaoLocationCode)
         {
             IcaoLocationCode = icaoLocationCode;
         }

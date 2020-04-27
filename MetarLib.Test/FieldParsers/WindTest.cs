@@ -1,11 +1,14 @@
 using MetarLib.Enums;
+using MetarLib.Parsers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MetarLib.Test
+namespace MetarLib.Test.FieldParsers
 {
     [TestClass]
-    public class WindTest : MetarParserTestBase
+    public class WindTest : IFieldParserTestBase
     {
+        public WindTest() : base(new WindParser()) {}
+
         [TestMethod]
         public void Metar_with_wind()
         {
