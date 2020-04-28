@@ -2,7 +2,7 @@ using MetarLib.Contracts;
 using MetarLib.Parsers;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MetarLib
+namespace MetarLib.Services
 {
     public static class IServiceCollectionExtensions
     {
@@ -12,6 +12,7 @@ namespace MetarLib
 
             serviceCollection.AddSingleton<IFieldParser, IcaoLocationCodeParser>();
             serviceCollection.AddSingleton<IFieldParser, TimeOfObservationParser>();
+            serviceCollection.AddSingleton<IFieldParser, AutoParser>();
             serviceCollection.AddSingleton<IFieldParser, WindParser>();
             serviceCollection.AddSingleton<IFieldParser, WindVariationParser>();
             serviceCollection.AddSingleton<IFieldParser, VisibilityParser>();

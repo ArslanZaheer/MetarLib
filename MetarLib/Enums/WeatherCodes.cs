@@ -3,7 +3,7 @@ using System;
 namespace MetarLib.Enums
 {
     [Flags]
-    public enum WeatherFlags : long
+    public enum WeatherCodes : long
     {
         None = 0,
         

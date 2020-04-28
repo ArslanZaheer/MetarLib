@@ -20,7 +20,7 @@ namespace MetarLib.Test.FieldParsers
 
             var weather = metar.Weather.Single();
             
-            Assert.That.EnumHasFlag(WeatherFlags.Rain, weather);
+            Assert.That.EnumHasFlag(WeatherCodes.Rain, weather);
         }
         
         [TestMethod]
@@ -32,8 +32,8 @@ namespace MetarLib.Test.FieldParsers
 
             var weather = metar.Weather.Single();
             
-            Assert.That.EnumHasFlag(WeatherFlags.Heavy, weather);
-            Assert.That.EnumHasFlag(WeatherFlags.Snow, weather);
+            Assert.That.EnumHasFlag(WeatherCodes.Heavy, weather);
+            Assert.That.EnumHasFlag(WeatherCodes.Snow, weather);
         }
         
         [TestMethod]
@@ -45,9 +45,9 @@ namespace MetarLib.Test.FieldParsers
 
             var weather = metar.Weather.Single();
             
-            Assert.That.EnumHasFlag(WeatherFlags.Light, weather);
-            Assert.That.EnumHasFlag(WeatherFlags.Thunderstorm, weather);
-            Assert.That.EnumHasFlag(WeatherFlags.Hail, weather);
+            Assert.That.EnumHasFlag(WeatherCodes.Light, weather);
+            Assert.That.EnumHasFlag(WeatherCodes.Thunderstorm, weather);
+            Assert.That.EnumHasFlag(WeatherCodes.Hail, weather);
         }
     }
 }

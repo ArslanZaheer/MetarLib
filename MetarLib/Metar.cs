@@ -9,11 +9,13 @@ namespace MetarLib
         public Metar()
         {
             Clouds = new List<Cloud>();
-            Weather = new List<WeatherFlags>();
+            Weather = new List<WeatherCodes>();
         }
         
         public string IcaoLocationCode { get; set; }
         public DateTimeOffset TimeOfObservation { get; set; }
+        
+        public bool IsAutomaticObservation { get; set; }
         
         public int? WindDirection { get; set; }
         public bool IsWindVariable { get; set; }
@@ -31,7 +33,7 @@ namespace MetarLib
         public int? Temperature { get; set; }
         public int? Dewpoint { get; set; }
         
-        public ICollection<WeatherFlags> Weather { get; }
+        public ICollection<WeatherCodes> Weather { get; }
         
         public ICollection<Cloud> Clouds { get; }
         

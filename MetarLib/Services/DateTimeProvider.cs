@@ -1,7 +1,7 @@
 using System;
 using MetarLib.Contracts;
 
-namespace MetarLib
+namespace MetarLib.Services
 {
     internal class DateTimeProvider : IDateTimeProvider
     {
