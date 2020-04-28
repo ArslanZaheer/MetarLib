@@ -10,7 +10,7 @@ namespace MetarLib.Test.FieldParsers
         public AltimeterSettingTest() : base(new AltimeterSettingParser()) {}
 
         [TestMethod]
-        public void Metar_with_altimeter_setting_in_mmHg()
+        public void Metar_with_altimeter_setting_in_inHg()
         {
             var metar = GetMetar("A2992");
             
