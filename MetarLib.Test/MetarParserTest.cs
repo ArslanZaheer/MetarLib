@@ -25,7 +25,7 @@ namespace MetarLib.Test
         [TestMethod]
         public void Full_METAR_message_1()
         {
-            var metarText = "METAR EHBK 271025Z AUTO 23007KT 160V300 9999 NSC 18/04 Q1008 NOSIG=";
+            const string metarText = "METAR EHBK 271025Z AUTO 23007KT 160V300 9999 NSC 18/04 Q1008 NOSIG=";
 
             var metars = _metarParser.Parse(metarText).ToArray();
             var metar = metars.Single();
@@ -35,6 +35,8 @@ namespace MetarLib.Test
             Assert.AreEqual(27, metar.TimeOfObservation.Day);
             Assert.AreEqual(10, metar.TimeOfObservation.Hour);
             Assert.AreEqual(25, metar.TimeOfObservation.Minute);
+            
+            Assert.AreEqual(true, metar.IsAutomaticObservation);
             
             Assert.AreEqual(230, metar.WindDirection);
             Assert.AreEqual(7, metar.WindSpeed);
@@ -58,7 +60,7 @@ namespace MetarLib.Test
         [TestMethod]
         public void Full_METAR_message_2()
         {
-            var metarText = "METAR LBBG 041600Z 12012MPS 090V150 1400 R04/P1500N R22/P1500U +SN BKN022 OVC050 M04/M07 Q1020 NOSIG 8849//91=";
+            const string metarText = "METAR LBBG 041600Z 12012MPS 090V150 1400 R04/P1500N R22/P1500U +SN BKN022 OVC050 M04/M07 Q1020 NOSIG 8849//91=";
 
             var metars = _metarParser.Parse(metarText).ToArray();
             var metar = metars.Single();
@@ -68,6 +70,8 @@ namespace MetarLib.Test
             Assert.AreEqual(4, metar.TimeOfObservation.Day);
             Assert.AreEqual(16, metar.TimeOfObservation.Hour);
             Assert.AreEqual(0, metar.TimeOfObservation.Minute);
+            
+            Assert.AreEqual(false, metar.IsAutomaticObservation);
             
             Assert.AreEqual(120, metar.WindDirection);
             Assert.AreEqual(12, metar.WindSpeed);
@@ -97,6 +101,57 @@ namespace MetarLib.Test
             
             Assert.AreEqual(1020, metar.AltimeterSetting);
             Assert.AreEqual(UnitOfPressure.Hectopascals, metar.AltimeterSettingUnit);
+        }
+
+        [TestMethod]
+        public void Full_METAR_message_3()
+        {
+            const string metarText = "METAR EHQE 281655Z AUTO 01017KT 9999 -RADZ FEW008 SCT010 BKN013 FEW015CB 08/05 Q1004=";
+
+            var metars = _metarParser.Parse(metarText).ToArray();
+            var metar = metars.Single();
+            
+            Assert.AreEqual("EHQE", metar.IcaoLocationCode);
+            
+            Assert.AreEqual(28, metar.TimeOfObservation.Day);
+            Assert.AreEqual(16, metar.TimeOfObservation.Hour);
+            Assert.AreEqual(55, metar.TimeOfObservation.Minute);
+            
+            Assert.AreEqual(true, metar.IsAutomaticObservation);
+            
+            Assert.AreEqual(10, metar.WindDirection);
+            Assert.AreEqual(17, metar.WindSpeed);
+            Assert.AreEqual(UnitOfSpeed.Knots, metar.WindSpeedUnit);
+            
+            Assert.AreEqual(9999, metar.Visibility);
+            Assert.AreEqual(UnitOfLength.Meters, metar.VisibilityUnit);
+
+            var weather = metar.Weather.Single();
+            
+            Assert.That.EnumHasFlag(WeatherCodes.Light, weather);
+            Assert.That.EnumHasFlag(WeatherCodes.Rain, weather);
+            Assert.That.EnumHasFlag(WeatherCodes.Drizzle, weather);
+
+            var clouds = metar.Clouds.ToArray();
+            
+            Assert.AreEqual(CloudCoverage.Few, clouds[0].Coverage);
+            Assert.AreEqual(800, clouds[0].Altitude);
+            
+            Assert.AreEqual(CloudCoverage.Scattered, clouds[1].Coverage);
+            Assert.AreEqual(1000, clouds[1].Altitude);
+            
+            Assert.AreEqual(CloudCoverage.Broken, clouds[2].Coverage);
+            Assert.AreEqual(1300, clouds[2].Altitude);
+            
+            Assert.AreEqual(CloudCoverage.Few, clouds[3].Coverage);
+            Assert.AreEqual(1500, clouds[3].Altitude);
+            Assert.AreEqual(CloudConvectivity.Cumulonimbus, clouds[3].Convectivity);
+            
+            Assert.AreEqual(8, metar.Temperature);
+            Assert.AreEqual(5, metar.Dewpoint);
+            
+            Assert.AreEqual(UnitOfPressure.Hectopascals, metar.AltimeterSettingUnit);
+            Assert.AreEqual(1004, metar.AltimeterSetting);
         }
     }
 }

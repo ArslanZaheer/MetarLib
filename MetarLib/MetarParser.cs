@@ -7,7 +7,7 @@ namespace MetarLib
 {
     public class MetarParser : IMetarParser
     {
-        private static readonly Regex MetarRegex = new Regex(@"METAR (.+?)=", RegexOptions.Compiled | RegexOptions.Singleline);
+        private static readonly Regex MetarRegex = new Regex(@"METAR (.+?)(?:\sBECMG (.+?))?=", RegexOptions.Compiled | RegexOptions.Singleline);
         
         private readonly IEnumerable<IFieldParser> _fieldParsers;
 
