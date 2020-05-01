@@ -153,5 +153,13 @@ namespace MetarLib.Test
             Assert.AreEqual(UnitOfPressure.Hectopascals, metar.AltimeterSettingUnit);
             Assert.AreEqual(1004, metar.AltimeterSetting);
         }
+
+        [TestMethod]
+        public void Full_METAR_message_4()
+        {
+            const string metarText = "METAR EGPA 100805Z 1009/1018 11015G25KT 9999 FEW002 SCT008 TEMPO 1009/1015 8000 -SHRA BKN012 PROB30 TEMPO 1009/1014 4000 RA BKN006 BECMG 1009/1012 15023G35KT BECMG 1015/1018 21015G25KT=";
+
+            var metars = _metarParser.Parse(metarText).ToArray();
+        }
     }
 }

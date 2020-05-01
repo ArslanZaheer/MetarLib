@@ -42,7 +42,7 @@ namespace MetarLib.Test.FieldParsers
                 Now = new DateTimeOffset(2020, currentMonth, 1, 0, 0, 0, TimeSpan.Zero)
             };
             var parser = new TimeOfObservationParser(dateTimeProvider);
-            
+
             var metar = new Metar();
             
             parser.Parse("020000Z", metar);

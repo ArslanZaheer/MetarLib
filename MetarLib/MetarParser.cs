@@ -7,7 +7,10 @@ namespace MetarLib
 {
     public class MetarParser : IMetarParser
     {
-        private static readonly Regex MetarRegex = new Regex(@"METAR (.+?)(?:\sBECMG (.+?))?=", RegexOptions.Compiled | RegexOptions.Singleline);
+        private const string Becoming = "BECMG";
+        private const string Temporary = "TEMPO";
+        
+        private static readonly Regex MetarRegex = new Regex(@"METAR (.+?)=", RegexOptions.Compiled | RegexOptions.Singleline);
         
         private readonly IEnumerable<IFieldParser> _fieldParsers;
 
@@ -31,19 +34,38 @@ namespace MetarLib
         private Metar ParseMetar(Match match)
         {
             var metar = new Metar();
-
-            var fields = match.Groups[1].Value.Split(' ');
-
-            foreach (var field in fields)
-            {
-                foreach (var parser in _fieldParsers)
-                {
-                    if (parser.Parse(field, metar))
-                        break;
-                }
-            }
             
+            var fields = match.Groups[1].Value.Split(' ');
+            fields.Aggregate(metar, (current, field) => ParseField(field, current, metar));
+
             return metar;
+        }
+
+        private Metar ParseField(string field, Metar currentMetar, Metar metar)
+        {
+            if (field == Becoming)
+            {
+                currentMetar = new TemporaryMetar();
+
+                metar.Becoming.Add((TemporaryMetar)currentMetar);
+                return currentMetar;
+            }
+
+            if (field == Temporary)
+            {
+                currentMetar = new TemporaryMetar();
+
+                metar.Temporary.Add((TemporaryMetar)currentMetar);
+                return currentMetar;
+            }
+
+            foreach (var parser in _fieldParsers)
+            {
+                if (parser.Parse(field, currentMetar))
+                    break;
+            }
+
+            return currentMetar;
         }
     }
 }

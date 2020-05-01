@@ -10,6 +10,8 @@ namespace MetarLib
         {
             Clouds = new List<Cloud>();
             Weather = new List<WeatherCodes>();
+            Becoming = new List<TemporaryMetar>();
+            Temporary = new List<TemporaryMetar>();
         }
         
         public string IcaoLocationCode { get; set; }
@@ -39,6 +41,9 @@ namespace MetarLib
         
         public decimal? AltimeterSetting { get; set; }
         public UnitOfPressure AltimeterSettingUnit { get; set; }
+        
+        public ICollection<TemporaryMetar> Becoming { get; }
+        public ICollection<TemporaryMetar> Temporary { get; }
 
         public override string ToString() => IcaoLocationCode;
     }
