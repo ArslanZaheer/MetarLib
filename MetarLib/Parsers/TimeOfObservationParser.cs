@@ -30,12 +30,13 @@ namespace MetarLib.Parsers
             var hour = int.Parse(match.Groups[Hour].Value);
             var minutes = int.Parse(match.Groups[Minutes].Value);
 
-            var dateTime = _dateTimeProvider.Now;
+            var now = _dateTimeProvider.Now;
+            var timeOfObservation = new DateTimeOffset(now.Year, now.Month, day, hour, minutes, 0, TimeSpan.Zero);
 
-            if (dateTime.Day < day)
-                dateTime = dateTime.AddMonths(-1);
-            
-            context.Metar.TimeOfObservation = new DateTimeOffset(dateTime.Year, dateTime.Month, day, hour, minutes, 0, TimeSpan.Zero);
+            if (timeOfObservation > now)
+                timeOfObservation = timeOfObservation.AddMonths(-1);
+
+            context.Metar.TimeOfObservation = timeOfObservation;
             
             return true;
         }

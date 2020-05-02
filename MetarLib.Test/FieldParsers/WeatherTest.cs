@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MetarLib.Test.FieldParsers
 {
     [TestClass]
-    public class WeatherTest : IFieldParserTestBase
+    public class WeatherTest : FieldParserTestBase
     {
         public WeatherTest() : base(new WeatherParser()) {}
 

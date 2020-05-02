@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MetarLib.Test.FieldParsers
 {
     [TestClass]
-    public class VisibilityTest : IFieldParserTestBase
+    public class VisibilityTest : FieldParserTestBase
     {
         public VisibilityTest() : base(new VisibilityParser()) {}
 

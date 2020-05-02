@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MetarLib.Test.FieldParsers
 {
     [TestClass]
-    public class AltimeterSettingTest : IFieldParserTestBase
+    public class AltimeterSettingTest : FieldParserTestBase
     {
         public AltimeterSettingTest() : base(new AltimeterSettingParser()) {}
 

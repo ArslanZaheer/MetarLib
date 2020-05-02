@@ -20,6 +20,9 @@ namespace MetarLib.Services
             serviceCollection.AddSingleton<IFieldParser, CloudParser>();
             serviceCollection.AddSingleton<IFieldParser, TemperatureDewpointParser>();
             serviceCollection.AddSingleton<IFieldParser, AltimeterSettingParser>();
+            serviceCollection.AddSingleton<IFieldParser, VerticalVisibilityParser>();
+            serviceCollection.AddSingleton<IFieldParser, ProbabilityParser>();
+            serviceCollection.AddSingleton<IFieldParser, ValidityParser>();
 
             serviceCollection.AddSingleton<IMetarParser, MetarParser>();
         }

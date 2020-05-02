@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MetarLib.Test.FieldParsers
 {
     [TestClass]
-    public class CloudTest : IFieldParserTestBase
+    public class CloudTest : FieldParserTestBase
     {
         public CloudTest() : base(new CloudParser()) {}
 

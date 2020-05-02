@@ -14,12 +14,13 @@ namespace MetarLib
         /// <summary>
         /// The METAR that is currently being parsed.
         /// </summary>
-        public Metar Metar { get; set; }
+        public Metar Metar { get; private set; }
         public decimal? Probability { get; set; }
 
         public void ParseBecoming()
         {
-            var becomingMetar = new TemporaryMetar();
+            var becomingMetar = new TemporaryMetar(_metar, Probability);
+            Probability = null;
             
             _metar.Becoming.Add(becomingMetar);
             Metar = becomingMetar;
@@ -27,7 +28,8 @@ namespace MetarLib
         
         public void ParseTemporary()
         {
-            var temporaryMetar = new TemporaryMetar();
+            var temporaryMetar = new TemporaryMetar(_metar, Probability);
+            Probability = null;
             
             _metar.Temporary.Add(temporaryMetar);
             Metar = temporaryMetar;

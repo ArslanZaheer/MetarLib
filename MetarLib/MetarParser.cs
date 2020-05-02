@@ -47,15 +47,13 @@ namespace MetarLib
         {
             if (field == Becoming)
             {
-                context.Metar = new TemporaryMetar();
-                context.Metar.Becoming.Add((TemporaryMetar)context.Metar);
+                context.ParseBecoming();
                 return;
             }
 
             if (field == Temporary)
             {
-                context.Metar = new TemporaryMetar();
-                context.Metar.Temporary.Add((TemporaryMetar)context.Metar);
+                context.ParseTemporary();
                 return;
             }
 

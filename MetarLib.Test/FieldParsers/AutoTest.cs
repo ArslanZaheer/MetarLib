@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MetarLib.Test.FieldParsers
 {
     [TestClass]
-    public class AutoTest : IFieldParserTestBase
+    public class AutoTest : FieldParserTestBase
     {
         public AutoTest() : base(new AutoParser()) {}
 

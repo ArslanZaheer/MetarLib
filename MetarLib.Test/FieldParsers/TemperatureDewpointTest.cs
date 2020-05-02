@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MetarLib.Test.FieldParsers
 {
     [TestClass]
-    public class TemperatureDewpointTest : IFieldParserTestBase
+    public class TemperatureDewpointTest : FieldParserTestBase
     {
         public TemperatureDewpointTest() : base(new TemperatureDewpointParser()) {}
 

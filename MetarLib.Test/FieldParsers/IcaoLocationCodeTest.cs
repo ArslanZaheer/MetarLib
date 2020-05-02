@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MetarLib.Test.FieldParsers
 {
     [TestClass]
-    public class IcaoLocationCodeTest : IFieldParserTestBase
+    public class IcaoLocationCodeTest : FieldParserTestBase
     {
         public IcaoLocationCodeTest() : base(new IcaoLocationCodeParser()) {}
 

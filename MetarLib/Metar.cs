@@ -32,6 +32,8 @@ namespace MetarLib
         public decimal? Visibility { get; set; }
         public UnitOfLength VisibilityUnit { get; set; }
         
+        public int? VerticalVisibility { get; set; }
+        
         public int? Temperature { get; set; }
         public int? Dewpoint { get; set; }
         

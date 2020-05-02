@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MetarLib.Test.FieldParsers
 {
     [TestClass]
-    public class WindVariationTest : IFieldParserTestBase
+    public class WindVariationTest : FieldParserTestBase
     {
         public WindVariationTest() : base(new WindVariationParser()) {}
 

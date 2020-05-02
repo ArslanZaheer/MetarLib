@@ -2,11 +2,11 @@ using MetarLib.Contracts;
 
 namespace MetarLib.Test.FieldParsers
 {
-    public abstract class IFieldParserTestBase
+    public abstract class FieldParserTestBase
     {
         private readonly IFieldParser _fieldParser;
 
-        protected IFieldParserTestBase(IFieldParser fieldParser)
+        protected FieldParserTestBase(IFieldParser fieldParser)
         {
             _fieldParser = fieldParser;
         }
