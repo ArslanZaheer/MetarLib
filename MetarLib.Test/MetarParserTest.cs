@@ -36,7 +36,7 @@ namespace MetarLib.Test
             Assert.AreEqual(10, metar.TimeOfObservation.Hour);
             Assert.AreEqual(25, metar.TimeOfObservation.Minute);
             
-            Assert.AreEqual(true, metar.IsAutomaticObservation);
+            Assert.IsTrue(metar.IsAutomaticObservation);
             
             Assert.AreEqual(230, metar.WindDirection);
             Assert.AreEqual(7, metar.WindSpeed);
@@ -71,7 +71,7 @@ namespace MetarLib.Test
             Assert.AreEqual(16, metar.TimeOfObservation.Hour);
             Assert.AreEqual(0, metar.TimeOfObservation.Minute);
             
-            Assert.AreEqual(false, metar.IsAutomaticObservation);
+            Assert.IsFalse(metar.IsAutomaticObservation);
             
             Assert.AreEqual(120, metar.WindDirection);
             Assert.AreEqual(12, metar.WindSpeed);
@@ -117,7 +117,7 @@ namespace MetarLib.Test
             Assert.AreEqual(16, metar.TimeOfObservation.Hour);
             Assert.AreEqual(55, metar.TimeOfObservation.Minute);
             
-            Assert.AreEqual(true, metar.IsAutomaticObservation);
+            Assert.IsTrue(metar.IsAutomaticObservation);
             
             Assert.AreEqual(10, metar.WindDirection);
             Assert.AreEqual(17, metar.WindSpeed);

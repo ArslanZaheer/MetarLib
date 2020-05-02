@@ -12,19 +12,11 @@ namespace MetarLib.Test.FieldParsers
         }
 
         [TestMethod]
-        public void Metar_has_vertical_visibility()
+        public void Metar_with_vertical_visibility()
         {
             var metar = GetMetar("VV050");
             
             Assert.AreEqual(5000, metar.VerticalVisibility);
-        }
-        
-        [TestMethod]
-        public void Metar_has_no_vertical_visibility()
-        {
-            var metar = GetMetar("010000Z");
-            
-            Assert.AreEqual(null, metar.VerticalVisibility);
         }
     }
 }
