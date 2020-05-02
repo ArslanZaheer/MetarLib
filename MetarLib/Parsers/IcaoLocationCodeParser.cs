@@ -5,10 +5,14 @@ namespace MetarLib.Parsers
 {
     public class IcaoLocationCodeParser : IFieldParser
     {
+        private const int LocationCode = 1;
+        
         private static readonly Regex IcaoLocationCodeRegex = new Regex(@"^([A-Z]{4})$", RegexOptions.Compiled);
         
-        public bool Parse(string field, Metar metar)
+        public bool Parse(ParserContext context, string field)
         {
+            var metar = context.Metar;
+            
             if (metar.IcaoLocationCode != null)
                 return false;
             
@@ -17,7 +21,7 @@ namespace MetarLib.Parsers
             if (!match.Success)
                 return false;
 
-            metar.IcaoLocationCode = match.Groups[1].Value;
+            metar.IcaoLocationCode = match.Groups[LocationCode].Value;
 
             return true;
         }

@@ -13,11 +13,11 @@ namespace MetarLib.Test.FieldParsers
         
         protected Metar GetMetar(string field)
         {
-            var metar = new Metar();
+            var context = new ParserContext();
 
-            _fieldParser.Parse(field, metar);
+            _fieldParser.Parse(context, field);
 
-            return metar;
+            return context.GetResult();
         }
     }
 }

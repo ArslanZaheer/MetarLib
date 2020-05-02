@@ -4,13 +4,14 @@ namespace MetarLib.Parsers
 {
     public class AutoParser : IFieldParser
     {
-        public bool Parse(string field, Metar metar)
+        private const string Auto = "AUTO";
+        
+        public bool Parse(ParserContext context, string field)
         {
-            if (field != "AUTO")
+            if (field != Auto)
                 return false;
 
-            return metar.IsAutomaticObservation = true;
-            
+            return context.Metar.IsAutomaticObservation = true;
         }
     }
 }

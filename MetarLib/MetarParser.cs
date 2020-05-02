@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using MetarLib.Contracts;
 
@@ -9,6 +8,8 @@ namespace MetarLib
     {
         private const string Becoming = "BECMG";
         private const string Temporary = "TEMPO";
+
+        private const int Metar = 1;
         
         private static readonly Regex MetarRegex = new Regex(@"METAR (.+?)=", RegexOptions.Compiled | RegexOptions.Singleline);
         
@@ -33,39 +34,36 @@ namespace MetarLib
 
         private Metar ParseMetar(Match match)
         {
-            var metar = new Metar();
-            
-            var fields = match.Groups[1].Value.Split(' ');
-            fields.Aggregate(metar, (current, field) => ParseField(field, current, metar));
+            var context = new ParserContext();
+            var fields = match.Groups[Metar].Value.Split(' ');
 
-            return metar;
+            foreach (var field in fields)
+                ParseField(context, field);
+
+            return context.GetResult();
         }
 
-        private Metar ParseField(string field, Metar currentMetar, Metar metar)
+        private void ParseField(ParserContext context, string field)
         {
             if (field == Becoming)
             {
-                currentMetar = new TemporaryMetar();
-
-                metar.Becoming.Add((TemporaryMetar)currentMetar);
-                return currentMetar;
+                context.Metar = new TemporaryMetar();
+                context.Metar.Becoming.Add((TemporaryMetar)context.Metar);
+                return;
             }
 
             if (field == Temporary)
             {
-                currentMetar = new TemporaryMetar();
-
-                metar.Temporary.Add((TemporaryMetar)currentMetar);
-                return currentMetar;
+                context.Metar = new TemporaryMetar();
+                context.Metar.Temporary.Add((TemporaryMetar)context.Metar);
+                return;
             }
 
             foreach (var parser in _fieldParsers)
             {
-                if (parser.Parse(field, currentMetar))
+                if (parser.Parse(context, field))
                     break;
             }
-
-            return currentMetar;
         }
     }
 }

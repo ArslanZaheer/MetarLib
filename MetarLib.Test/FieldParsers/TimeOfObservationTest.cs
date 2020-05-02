@@ -23,9 +23,10 @@ namespace MetarLib.Test.FieldParsers
         {
             var parser = new TimeOfObservationParser(new FakeDateTimeProvider());
             
-            var metar = new Metar();
+            var context = new ParserContext();
+            parser.Parse(context, "170845Z");
 
-            parser.Parse("170845Z", metar);
+            var metar = context.GetResult();
             
             Assert.AreEqual(17, metar.TimeOfObservation.Day);
             Assert.AreEqual(8, metar.TimeOfObservation.Hour);
@@ -43,9 +44,10 @@ namespace MetarLib.Test.FieldParsers
             };
             var parser = new TimeOfObservationParser(dateTimeProvider);
 
-            var metar = new Metar();
+            var context = new ParserContext();
+            parser.Parse(context, "020000Z");
             
-            parser.Parse("020000Z", metar);
+            var metar = context.GetResult();
             
             Assert.AreEqual(currentMonth - 1, metar.TimeOfObservation.Month);
             Assert.AreEqual(2, metar.TimeOfObservation.Day);

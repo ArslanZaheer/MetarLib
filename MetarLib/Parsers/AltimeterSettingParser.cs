@@ -6,23 +6,31 @@ namespace MetarLib.Parsers
 {
     public class AltimeterSettingParser : IFieldParser
     {
-        private static readonly Regex AltimeterSettingRegex = new Regex(@"^(A|Q)(\d{4})$", RegexOptions.Compiled);
+        private const string InchesOfMercury = "A";
+        private const string Hectopascals = "Q";
+        
+        private const int Unit = 1;
+        private const int Pressure = 2;
 
-        public bool Parse(string field, Metar metar)
+        private static readonly Regex AltimeterSettingRegex = new Regex($@"^({InchesOfMercury}|{Hectopascals})(\d{{4}})$", RegexOptions.Compiled);
+
+        public bool Parse(ParserContext context, string field)
         {
             var match = AltimeterSettingRegex.Match(field);
 
             if (!match.Success)
                 return false;
 
-            var altimeterSetting = decimal.Parse(match.Groups[2].Value);
+            var metar = context.Metar;
+            var unit = match.Groups[Unit].Value;
+            var altimeterSetting = decimal.Parse(match.Groups[Pressure].Value);
 
-            if (match.Groups[1].Value == "A")
+            if (unit == InchesOfMercury)
             {
                 metar.AltimeterSetting = altimeterSetting / 100m;
                 metar.AltimeterSettingUnit = UnitOfPressure.InchesOfMercury;
             }
-            else if (match.Groups[1].Value == "Q")
+            else if (unit == Hectopascals)
             {
                 metar.AltimeterSetting = altimeterSetting;
                 metar.AltimeterSettingUnit = UnitOfPressure.Hectopascals;

@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using System.Text.RegularExpressions;
 using MetarLib.Contracts;
 using MetarLib.Enums;
@@ -9,39 +6,57 @@ namespace MetarLib.Parsers
 {
     public class CloudParser : IFieldParser
     {
-        private static readonly Regex CloudRegex = new Regex(@"^(SKC|FEW|SCT|BKN|OVC|NCD|NSC)(\d{3})?(CB|TCU)?", RegexOptions.Compiled);
+        private const string SkyClear = "SKC";
+        private const string Few = "FEW";
+        private const string Scattered = "SCT";
+        private const string Broken = "BKN";
+        private const string Overcast = "OVC";
+        private const string NoCloudDetected = "NCD";
+        private const string NoSignificantCloud = "NSC";
+        private const string Cumulonimbus = "CB";
+        private const string ToweringCumulus = "TCU";
+
+        private const int Coverage = 1;
+        private const int Altitude = 2;
+        private const int Convectivity = 3;
+
+        private static readonly Regex CloudRegex =
+            new Regex(
+                $@"^({SkyClear}|{Few}|{Scattered}|{Broken}|{Overcast}|{NoCloudDetected}|{NoSignificantCloud})(\d{{3}})?({Cumulonimbus}|{ToweringCumulus})?",
+                RegexOptions.Compiled);
         
-        public bool Parse(string field, Metar metar)
+        public bool Parse(ParserContext context, string field)
         {
             var match = CloudRegex.Match(field);
 
             if (!match.Success)
                 return false;
 
-            var coverage = match.Groups[1].Value switch
+            var coverage = match.Groups[Coverage].Value switch
             {
-                "SKC" => CloudCoverage.SkyClear,
-                    
-                "FEW" => CloudCoverage.Few,
-                "SCT" => CloudCoverage.Scattered,
-                "BKN" => CloudCoverage.Broken,
-                "OVC" => CloudCoverage.Overcast,
-                    
-                "NCD" => CloudCoverage.NoCloudDetected,
-                "NSC" => CloudCoverage.NoSignificantCloud
+                SkyClear => CloudCoverage.SkyClear,
+                Few => CloudCoverage.Few,
+                Scattered => CloudCoverage.Scattered,
+                Broken => CloudCoverage.Broken,
+                Overcast => CloudCoverage.Overcast,
+                NoCloudDetected => CloudCoverage.NoCloudDetected,
+                NoSignificantCloud => CloudCoverage.NoSignificantCloud,
+                _ => CloudCoverage.Unknown
             };
 
-            var convectivity = match.Groups[3].Value switch
+            var convectivity = match.Groups[Convectivity].Value switch
             {
-                "CB" => CloudConvectivity.Cumulonimbus,
-                "TCU" => CloudConvectivity.ToweringCumulus,
+                Cumulonimbus => CloudConvectivity.Cumulonimbus,
+                ToweringCumulus => CloudConvectivity.ToweringCumulus,
                 _ => CloudConvectivity.None
             };
                 
-            var altitude = match.Groups[2].Success ? int.Parse(match.Groups[2].Value) * 100 : 0;
+            var altitude = match.Groups[Altitude].Success
+                ? int.Parse(match.Groups[Altitude].Value) * 100
+                : 0;
 
             var cloud = new Cloud(coverage, altitude, convectivity);
-            metar.Clouds.Add(cloud);
+            context.Metar.Clouds.Add(cloud);
 
             return true;
         }

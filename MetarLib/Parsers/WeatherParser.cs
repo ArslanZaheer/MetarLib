@@ -8,10 +8,13 @@ namespace MetarLib.Parsers
 {
     public class WeatherParser : IFieldParser
     {
+        private const int LightHeavy = 1;
+        private const int Codes = 2;
+        
         private static readonly Regex WeatherRegex = new Regex(@"^([-+])?((?:[A-Z]{2})+)$", RegexOptions.Compiled);
         private static readonly Regex WeatherCodesRegex = new Regex(@"[A-Z]{2}");
 
-        public bool Parse(string field, Metar metar)
+        public bool Parse(ParserContext context, string field)
         {
             var match = WeatherRegex.Match(field);
 
@@ -20,13 +23,13 @@ namespace MetarLib.Parsers
 
             var codes = new List<string>();
             
-            if (match.Groups[1].Success)
-                codes.Add(match.Groups[1].Value);
+            if (match.Groups[LightHeavy].Success)
+                codes.Add(match.Groups[LightHeavy].Value);
             
-            var weatherCodeMatches = WeatherCodesRegex.Matches(match.Groups[2].Value);
+            var weatherCodeMatches = WeatherCodesRegex.Matches(match.Groups[Codes].Value);
             codes.AddRange(weatherCodeMatches.Select(f => f.Value));
             
-            var weather = codes.Aggregate(WeatherCodes.None, (codes, code) => codes | code switch
+            var weather = codes.Aggregate(WeatherCodes.None, (weatherCodes, code) => weatherCodes | code switch
             {
                 "-" => WeatherCodes.Light,
                 "+" => WeatherCodes.Heavy,
@@ -59,10 +62,11 @@ namespace MetarLib.Parsers
                 "TS" => WeatherCodes.Thunderstorm,
                 "UP" => WeatherCodes.UnidentifiedPrecipitation,
                 "VA" => WeatherCodes.VolcanicAsh,
-                "VC" => WeatherCodes.InTheVicinity
+                "VC" => WeatherCodes.InTheVicinity,
+                _ => WeatherCodes.None
             });
 
-            metar.Weather.Add(weather);
+            context.Metar.Weather.Add(weather);
             
             return true;
         }
