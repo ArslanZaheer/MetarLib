@@ -1,3 +1,4 @@
+using System.Threading;
 using MetarLib.Parsers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -26,6 +27,16 @@ namespace MetarLib.Test.FieldParsers
             var metar = GetMetar(locationCode);
             
             Assert.AreEqual(locationCode, metar.ToString());
+        }
+
+        [TestMethod]
+        public void Metar_has_invalid_location_code()
+        {
+            const string locationCode = "EH23";
+
+            var metar = GetMetar(locationCode);
+            
+            Assert.AreEqual(null, metar.IcaoLocationCode);
         }
     }
 }
